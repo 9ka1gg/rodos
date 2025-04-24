@@ -16,8 +16,8 @@ def scenarios_handler():
     while True:
         print('Выберите сценарий:\n\n', end='')
         for scenario_file in os.listdir('scenarios'):
-            if '.dll' in scenario_file:
-                print(scenario_file.replace('.dll', ''), end=' ')
+            if '.bat' in scenario_file:
+                print(scenario_file.replace('.bat', ''), end=' ')
         selected_scenario = input('\n\nЗагрузить сценарий (-1 для выхода): ')
         if selected_scenario == '-1':
             return 0
@@ -29,7 +29,7 @@ def scenarios_handler():
         if not scenario_existing:
             print('Введён несуществующий сценарий. Попробуйте снова.')
             pass
-        with open(f'scenarios/{selected_scenario}.dll') as scenario:
+        with open(f'scenarios/{selected_scenario}.bat') as scenario:
             for line in scenario.readlines():
                 command(ip=ip, relay=line[0], action=line[1])
 
@@ -44,7 +44,7 @@ def scenarios_editor():
             if scenario_name == '-1':
                 return 0
             for other_scenario_name in os.listdir('scenarios'):
-                if scenario_name == other_scenario_name.replace('dll', ''):
+                if scenario_name == other_scenario_name.replace('bat', ''):
                     print('Введено название существующего сценария.\n0 - удалить существующий\n-1 - отмена')
                     del_or_can = input('Действие: ')
                     if del_or_can == '0':
@@ -52,7 +52,7 @@ def scenarios_editor():
                         print(f'Сценарий {other_scenario_name} удалён.')
                     elif del_or_can == '-1':
                         pass
-            open(f'scenarios/{scenario_name}.dll', '+w').close()
+            open(f'scenarios/{scenario_name}.bat', '+w').close()
             print('\nНачинайте вводить шаги сценария через абзац.\nдля завершения сценария введите -1.\n')
             while True:
                 relay = int(input('Реле (0-15): '))
@@ -64,13 +64,13 @@ def scenarios_editor():
                     print('Создание сценария завершено. Возвращение в главное меню.')
                     return 0
                 if 0 <= relay <= 15 and action == 'n' or action == 'f' or action == 's':
-                    with open(f'scenarios/{scenario_name}.dll', 'a') as new_scenario:
+                    with open(f'scenarios/{scenario_name}.bat', 'a') as new_scenario:
                         new_scenario.write(f'{relay}{action}\n')
         elif mode == '1':
             print('Список сценариев:\n\n', end='')
             for scenario_file in os.listdir('scenarios'):
-                if '.dll' in scenario_file:
-                    print(scenario_file.replace('.dll', ''), end=' ')
+                if '.bat' in scenario_file:
+                    print(scenario_file.replace('.bat', ''), end=' ')
             selected_scenario = input('\n\nРедактировать сценарий (-1 для выхода): ')
             if selected_scenario == '-1':
                 return 0
