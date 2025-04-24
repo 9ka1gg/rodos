@@ -4,9 +4,9 @@ import os
 
 def command(ip, relay, action):
     address = f'http://{login}:{password}@{ip}/protect/rb{relay}{action}.cgi'
-    print('Отправляется запрос по адресу:', address)
+    print(f'Отправляется запрос по адресу {address} ... ', end='')
     response = requests.get(address)
-    print('Успешно отправлен запрос по адресу:', address)
+    print('Успешно. \n')
 
 
 ip = input('Введите IP: ')
