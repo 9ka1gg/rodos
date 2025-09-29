@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.ttk import Combobox
 import requests
 import os
+import subprocess
 
 window = Tk()
 
@@ -60,7 +61,7 @@ def execute_command_button():
 
 
 def open_editor_button():
-    print('clicked open_editor button')
+    subprocess.run(['python', 'editor.py'])
 
 title = Label(window, text='EasyRODOS', font=('Calibri Bold', 40))
 title.place(relx=0.5, rely=0.05, anchor=CENTER)
