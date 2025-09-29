@@ -11,9 +11,9 @@ def command(ip, relay, action):
     print(f'Отправляется запрос по адресу {address} ... ', end='')
     try:
         response = requests.get(address)
-        print('Успешно. \n')
-    except:
-        print('Не удалось отправить запрос. \n')
+        print('Запрос отправлен. \n')
+    except Exception as error:
+        print(f'Не удалось отправить запрос. {error}\n')
 
 
 def scenarios_handler():
@@ -27,7 +27,7 @@ def scenarios_handler():
             return 0
         scenario_existing = False
         for existing_scenario in os.listdir('scenarios'):
-            if selected_scenario == existing_scenario:
+            if selected_scenario == existing_scenario.replace('.dll', ''):
                 is_scenario_existing = True
                 break
         if not scenario_existing:
@@ -35,7 +35,8 @@ def scenarios_handler():
             pass
         with open(f'scenarios/{selected_scenario}.bat') as scenario:
             for line in scenario.readlines():
-                command(ip=ip, relay=line[0], action=line[1])
+                line = line.rstrip()
+                command(ip=ip, relay=line[:-1], action=line[-1])
 
 
 def scenarios_editor():
@@ -184,7 +185,7 @@ def commands_handler():
         debug('using command()')
         command(ip=ip, relay=relay, action=action)
 
-
+# начало программы
 ip = input('Вход\nВведите IP (-1 чтобы продолжить без входа): ')
 login = 'admin'
 
@@ -198,8 +199,6 @@ if ip != '-1':
     debug(f'login={login}')
     password = input('Пароль: ')
     debug(f'password={password}')
-
-
 
 
 while True:
