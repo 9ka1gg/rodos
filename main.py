@@ -54,7 +54,6 @@ def load_scenario_button():
             execute_command(ip=data['ip'], login=data['login'], password=data['password'], relay=line[:-1], action=line[-1])
 
 def execute_command_button():
-    print('clicked execute_command button')
     data = get_data()
     print(data)
     execute_command(data['ip'], data['login'], data['password'], data['relay'], data['action'])
