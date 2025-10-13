@@ -12,8 +12,8 @@ def handle_request(relay, action):
     if action not in ['n', 'f', 's']:
         abort(400)
 
-    print(f'Реле {relay}: действие {action}')
-    return f'ОК: Реле {relay}, действие {action}'
+    print(f'Реле {relay}: действие {action.replace("n", "включить (ON)").replace("f", "выключить (OFF)").replace("s", "импульс (IMPULSE)")}')
+    return f'ОК: Реле {relay}, действие {action.replace("n", "включить (ON)").replace("f", "выключить (OFF)").replace("s", "импульс (IMPULSE)")}'
 
 
 if __name__ == '__main__':
