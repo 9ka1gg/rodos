@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
+import subprocess
+import sys
 import requests
 import os
 
@@ -65,7 +67,7 @@ def execute_command_button():
 
 
 def open_editor_button():
-    pass
+    subprocess.run([sys.executable, 'editor.pyw'])
 
 def impulse_relay0():
     data = get_data()
