@@ -6,6 +6,7 @@ import subprocess
 import sys
 import requests
 import os
+import time
 
 window = Tk()
 
@@ -58,7 +59,11 @@ def load_scenario_button():
     with open(f'scenarios/{data["scenario"]}') as scenario:
         for line in scenario.readlines():
             line = line.rstrip()
-            execute_command(ip=data['ip'], login=data['login'], password=data['password'], relay=line[:-1], action=line[-1])
+            if line[-1] == 'w':
+                time.sleep(float(line[:-1]))
+
+            else:
+                execute_command(ip=data['ip'], login=data['login'], password=data['password'], relay=line[:-1], action=line[-1])
 
 def execute_command_button():
     data = get_data()
