@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
+from tkinter import filedialog as fd
 import subprocess
 import sys
 import requests
@@ -36,8 +37,7 @@ def get_data():
     ip = ip_widget.get()
     login = login_widget.get()
     password = password_widget.get()
-    scenario = scenario_widget.get()
-    return {'ip': ip, 'login': login, 'password': password, 'scenario': scenario}
+    return {'ip': ip, 'login': login, 'password': password}
 
 
 def save_data():
@@ -56,7 +56,8 @@ def load_data():
 
 def load_scenario_button():
     data = get_data()
-    with open(f'scenarios/{data["scenario"]}') as scenario:
+    filename = fd.askopenfilename(title='Сохранить сценарий как...', initialdir='scenarios', defaultextension='bat')
+    with open(filename) as scenario:
         for line in scenario.readlines():
             line = line.rstrip()
             if line[-1] == 'w':
@@ -293,11 +294,7 @@ button_confirm_auth.place(relx=0.1, rely=0.41, anchor=CENTER)
 text_scenario = Label(window, text='Загрузить сценарий', font=('calibri light', 20))
 text_scenario.place(relx=0.8, rely=0.12, anchor=CENTER)
 
-scenario_widget = Combobox(window)
-scenario_widget['values'] = (get_scenarios())
-scenario_widget.place(relx=0.8, rely=0.19, anchor=CENTER)
-
-button_load_scenario = Button(window, text='Выполнить', command=load_scenario_button)
+button_load_scenario = Button(window, text='Выполнить сценарий...', command=load_scenario_button)
 button_load_scenario.place(relx=0.8, rely=0.25, anchor=CENTER)
 
 text_execute = Label(window, text='Выполнить', font=('calibri light', 20))
