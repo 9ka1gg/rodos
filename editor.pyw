@@ -4,9 +4,21 @@ from tkinter import ttk
 
 
 def new():
-    scenario = fd.asksaveasfilename(title='Сохранить сценарий как...', initialdir='scenarios', defaultextension='bat')
-    with open(scenario, 'w') as new_file:
+    global filename, commands, commands_var, commands_listbox
+    filename = fd.asksaveasfilename(title='Сохранить сценарий как...', initialdir='scenarios', defaultextension='bat')
+    with open(filename, 'w') as new_file:
         new_file.write('')
+    ttk.Label(text=filename).grid(row=0, column=0, padx=6, pady=6)
+    commands = []
+    with open(filename, 'r') as file:
+        for n, line in enumerate(file.readlines()):
+            command = line.rstrip()
+            ui_command = {'relay': command[:-1], 'action': command[-1]}
+            commands.append(
+                f'{n}. Реле {ui_command["relay"]}, Действие {ui_command["action"].replace("n", "ON").replace("f", "OFF").replace("s", "IMPULSE")}')
+        commands_var = Variable(value=commands)
+    commands_listbox = Listbox(listvariable=commands_var, width=30)
+    commands_listbox.grid(row=1, column=0)
 
 
 def save():
@@ -24,7 +36,10 @@ def save():
 def add():
     new_relay = relay_combobox.get()
     new_action = action_combobox.get()
-    commands.append(f'{commands.index(commands[-1])+1}. Реле {new_relay}, Действие {new_action}')
+    try:
+        commands.append(f'{commands.index(commands[-1])+1}. Реле {new_relay}, Действие {new_action}')
+    except IndexError:
+        commands.append(f'0. Реле {new_relay}, Действие {new_action}')
     commands_var.set(commands)
 
 
