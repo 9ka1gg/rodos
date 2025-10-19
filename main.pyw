@@ -8,9 +8,6 @@ import requests
 import os
 import time
 
-
-TIMEOUT = 0.5
-
 window = Tk()
 
 window.title('EasyRODOS')
@@ -21,7 +18,7 @@ def execute_command(input_ip, input_login, input_password, input_relay, input_ac
     address = f'http://{input_login}:{input_password}@{input_ip}/protect/rb{input_relay}{input_action}.cgi'
     print(f'Отправляется запрос по адресу {address} ... ', end='')
     try:
-        requests.post(address, timeout=TIMEOUT)
+        requests.get(address)
         print('Запрос отправлен.\n')
     except Exception as error:
         print(f'Не удалось отправить запрос. {error}\n')
@@ -90,10 +87,6 @@ def select_relay(relay_number):
     elif relay_var.get() == 0:
         execute_command(data['ip'], data['login'], data['password'], relay_number, 'f')
 
-
-def update_relays_status():
-    data = get_data()
-    response = requests.get(f'http://{data["ip"]}/pstat.xml', timeout=TIMEOUT)
 
 
 
