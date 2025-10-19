@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter import filedialog as fd
+import xml.etree.ElementTree as ET
 import subprocess
 import sys
 import requests
@@ -78,6 +79,7 @@ def execute_command_button():
 def open_editor_button():
     subprocess.run([sys.executable, 'editor.pyw'])
 
+
 def impulse_relay(selected_relay):
     data = get_data()
     execute_command(data['ip'], data['login'], data['password'], selected_relay, 's')
@@ -92,7 +94,13 @@ def select_relay(relay_number):
         execute_command(data['ip'], data['login'], data['password'], relay_number, 'f')
 
 
-
+# def update_relays_status(ip):
+#     response = requests.get(f'http://{ip}/pstat.xml', timeout=TIMEOUT)
+#     print(response.content)
+#     root = ET.fromstring(response.content)
+#     for child in root:
+#         print(child.tag)
+#         print(child.attrib)
 
 title = Label(window, text='EasyRODOS', font=('Calibri Bold', 40))
 title.place(relx=0.5, rely=0.05, anchor=CENTER)
@@ -156,5 +164,6 @@ except FileNotFoundError:
 except ValueError:
     print('Данные файла data.txt повреждены')
 
+# update_relays_status(get_data()['ip'])
 
 window.mainloop()

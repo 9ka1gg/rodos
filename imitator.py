@@ -45,9 +45,9 @@ def handle_request(relay, action):
 @app.route('/pstat.xml')
 def get_relay_status():
     """Возвращает статус всех реле в XML формате"""
-    xml_content = '<response>\n'
+    xml_content = '<response>'
     for i in range(16):
-        xml_content += f'<rl{i}string>{relay_states[i]}</rl{i}string>\n'
+        xml_content += f'<rl{i}string>{relay_states[i]}</rl{i}string>'
     xml_content += '</response>'
 
     return xml_content, 200, {'Content-Type': 'application/xml'}
