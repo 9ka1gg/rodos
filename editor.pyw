@@ -111,6 +111,7 @@ window = Tk()
 window.title('EasyScenario')
 window.geometry('750x250')
 
+global filename, commands, commands_var, commands_listbox
 file_menu = Menu(tearoff=0)
 file_menu.add_command(label='Новый сценарий', command=new)
 file_menu.add_separator()

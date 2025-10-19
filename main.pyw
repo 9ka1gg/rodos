@@ -8,6 +8,10 @@ import requests
 import os
 import time
 
+
+TIMEOUT = 0.5
+
+
 window = Tk()
 
 window.title('EasyRODOS')
@@ -18,7 +22,7 @@ def execute_command(input_ip, input_login, input_password, input_relay, input_ac
     address = f'http://{input_login}:{input_password}@{input_ip}/protect/rb{input_relay}{input_action}.cgi'
     print(f'Отправляется запрос по адресу {address} ... ', end='')
     try:
-        requests.get(address)
+        requests.get(address, timeout=TIMEOUT)
         print('Запрос отправлен.\n')
     except Exception as error:
         print(f'Не удалось отправить запрос. {error}\n')
