@@ -18,7 +18,7 @@ def execute_command(input_ip, input_login, input_password, input_relay, input_ac
     address = f'http://{input_login}:{input_password}@{input_ip}/protect/rb{input_relay}{input_action}.cgi'
     print(f'Отправляется запрос по адресу {address} ... ', end='')
     try:
-        response = requests.get(address)
+        requests.get(address)
         print('Запрос отправлен.\n')
     except Exception as error:
         print(f'Не удалось отправить запрос. {error}\n')
