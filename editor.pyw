@@ -122,7 +122,7 @@ main_menu = Menu()
 main_menu.add_cascade(label='Файл', menu=file_menu)
 
 ttk.Button(text="Удалить", command=delete).grid(column=1, row=1, padx=6, pady=6)
-ttk.Label(text='Ждать').grid(column=2, row=1, padx=6, pady=6)
+ttk.Label(text='Ждать (с)').grid(column=2, row=1, padx=6, pady=6)
 entry_wait = ttk.Entry(width=8)
 entry_wait.grid(column=3, row=1, padx=6, pady=6)
 ttk.Button(text="Изменить", command=edit_wait).grid(column=4, row=1, padx=6, pady=6)
